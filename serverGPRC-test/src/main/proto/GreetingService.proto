@@ -1,0 +1,14 @@
+syntax = "proto3";
+package com.example.proto;
+
+message HelloRequest{
+  string name = 1;
+  repeated string hobbies = 2; // список из строк
+}
+message HelloResponse {
+  string greeting = 1; // будет ответ клиенту
+}
+//описывваем метод который будет вызываться , просто объеденение rpc методы
+service GreetingService {
+  rpc greeting(HelloRequest) returns (HelloResponse); // принимает и отдает
+}
