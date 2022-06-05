@@ -25,7 +25,7 @@ public final class GreetingServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "greeting",
       requestType = com.example.proto.GreetingServiceOuterClass.HelloRequest.class,
       responseType = com.example.proto.GreetingServiceOuterClass.HelloResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
   public static io.grpc.MethodDescriptor<com.example.proto.GreetingServiceOuterClass.HelloRequest,
       com.example.proto.GreetingServiceOuterClass.HelloResponse> getGreetingMethod() {
     io.grpc.MethodDescriptor<com.example.proto.GreetingServiceOuterClass.HelloRequest, com.example.proto.GreetingServiceOuterClass.HelloResponse> getGreetingMethod;
@@ -34,7 +34,7 @@ public final class GreetingServiceGrpc {
         if ((getGreetingMethod = GreetingServiceGrpc.getGreetingMethod) == null) {
           GreetingServiceGrpc.getGreetingMethod = getGreetingMethod =
               io.grpc.MethodDescriptor.<com.example.proto.GreetingServiceOuterClass.HelloRequest, com.example.proto.GreetingServiceOuterClass.HelloResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "greeting"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -102,7 +102,7 @@ public final class GreetingServiceGrpc {
 
     /**
      * <pre>
-     * принимает и отдает
+     *stream ключевое слово указывает на поток данных
      * </pre>
      */
     public void greeting(com.example.proto.GreetingServiceOuterClass.HelloRequest request,
@@ -114,7 +114,7 @@ public final class GreetingServiceGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getGreetingMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
               new MethodHandlers<
                 com.example.proto.GreetingServiceOuterClass.HelloRequest,
                 com.example.proto.GreetingServiceOuterClass.HelloResponse>(
@@ -142,12 +142,12 @@ public final class GreetingServiceGrpc {
 
     /**
      * <pre>
-     * принимает и отдает
+     *stream ключевое слово указывает на поток данных
      * </pre>
      */
     public void greeting(com.example.proto.GreetingServiceOuterClass.HelloRequest request,
         io.grpc.stub.StreamObserver<com.example.proto.GreetingServiceOuterClass.HelloResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
           getChannel().newCall(getGreetingMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -171,11 +171,12 @@ public final class GreetingServiceGrpc {
 
     /**
      * <pre>
-     * принимает и отдает
+     *stream ключевое слово указывает на поток данных
      * </pre>
      */
-    public com.example.proto.GreetingServiceOuterClass.HelloResponse greeting(com.example.proto.GreetingServiceOuterClass.HelloRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+    public java.util.Iterator<com.example.proto.GreetingServiceOuterClass.HelloResponse> greeting(
+        com.example.proto.GreetingServiceOuterClass.HelloRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
           getChannel(), getGreetingMethod(), getCallOptions(), request);
     }
   }
@@ -195,17 +196,6 @@ public final class GreetingServiceGrpc {
     protected GreetingServiceFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new GreetingServiceFutureStub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * принимает и отдает
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.example.proto.GreetingServiceOuterClass.HelloResponse> greeting(
-        com.example.proto.GreetingServiceOuterClass.HelloRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGreetingMethod(), getCallOptions()), request);
     }
   }
 

@@ -5,6 +5,8 @@ import com.example.proto.GreetingServiceOuterClass;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
+import java.util.Iterator;
+
 public class Client {
     public static void main(String[] args) {
 
@@ -26,10 +28,12 @@ public class Client {
                         .setName("Nikita")
                         .build(); // создание запроса с установкой поля имени
 
-        GreetingServiceOuterClass.HelloResponse response = // получаем ответ
+        Iterator<GreetingServiceOuterClass.HelloResponse> response = // получаем ответ
                 stub.greeting(request);
 
-        System.out.println(response);
+        while (response.hasNext()){
+            System.out.println(response.next());
+        }
 
         channel.shutdownNow(); // конец
 

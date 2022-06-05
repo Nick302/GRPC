@@ -10,5 +10,7 @@ message HelloResponse {
 }
 //описывваем метод который будет вызываться , просто объеденение rpc методы
 service GreetingService {
-  rpc greeting(HelloRequest) returns (HelloResponse); // принимает и отдает
+  //stream ключевое слово указывает на поток данных
+  //если добавить к hellorequest еще stream то будет by directional - двух направленный поток
+  rpc greeting(HelloRequest) returns (stream HelloResponse); // принимает и отдает
 }

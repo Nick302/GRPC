@@ -10,15 +10,26 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
     public void greeting(GreetingServiceOuterClass.HelloRequest request,
                          StreamObserver<GreetingServiceOuterClass.HelloResponse> responseObserver){
      // в респонсе вызываем метод и он передает на клиента , асинхроный подход и не ждем ответа
-        System.out.println(request); // вывод что пришло от клиента , тостринг оопределен уже
+        //  System.out.println(request); // вывод что пришло от клиента , тостринг оопределен уже
 
-        GreetingServiceOuterClass.HelloResponse response = GreetingServiceOuterClass
-                .HelloResponse
-                .newBuilder()
-                .setGreeting("Hello from server, " + request.getName()) // ответ 1 поле greeting - текстовое
-                .build();
 
-        responseObserver.onNext(response); // отправляем ответ , один
+        for(int i = 0; i < 10000; i++){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } // потоковый стиль , создаем постоянно новый реквест и отправляем
+            GreetingServiceOuterClass.HelloResponse response = GreetingServiceOuterClass
+                    .HelloResponse
+                    .newBuilder()
+                    .setGreeting("Hello from server, " + request.getName()) // ответ 1 поле greeting - текстовое
+                    .build();
+
+            responseObserver.onNext(response); // отправляем ответ ,
+        }
+
+
+
         responseObserver.onCompleted(); // что мы больше не будем пересылать данные
 
     }

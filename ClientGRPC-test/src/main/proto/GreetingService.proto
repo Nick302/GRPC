@@ -10,5 +10,6 @@ message HelloResponse {
 }
 //описывваем метод который будет вызываться , просто объеденение rpc методы
 service GreetingService {
-  rpc greeting(HelloRequest) returns (HelloResponse); // принимает и отдает
+  //stream что будем получать
+  rpc greeting(HelloRequest) returns (stream HelloResponse); // принимает и отдает
 }
